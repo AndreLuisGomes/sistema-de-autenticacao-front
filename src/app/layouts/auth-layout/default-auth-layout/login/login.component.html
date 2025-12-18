@@ -1,20 +1,39 @@
-<form id="loginForm" [formGroup]="loginForm"
-    class="from-slate-800 bg-linear-to-l to-slate-900 w-full md:min-h-1 h-full justify-center flex flex-col gap-30 items-center"
-    (ngSubmit)="login()">
-    <h1 class="text-5xl shadow-2xl">Fazer Login</h1>
-    <div class="items-start flex flex-col gap-5 w-2/3">
-        <label class="text-3xl" for="email">Email:</label>
-        <input type="text" minlength="3" class="text-2xl font-nzzzormal border-b border-slate-500 focus:outline-none mb-15 p-3 pl-0 w-full"
-            formControlName="email" name="email" placeholder="Digite seu email" required>
-        <label class="text-3xl" for="password">Senha:</label>
-        <input type="password" class="text-2xl font-normal border-b border-slate-500 focus:outline-none p-3 pl-0 w-full"
-            formControlName="password" name="password" placeholder="Digite sua senha" required>
-            <span class="relative text-center w-full" *ngIf="invalidLogin">Login ou senha incorretos!</span>
+<form id="loginForm" [formGroup]="loginForm" class="p-7 font-normal overflow-hidden text-slate-300 text-xs w-xs rounded-xl justify-center flex flex-col gap-5 items-center
+    sm:w-sm sm:gap-5 sm:p-8 
+    md:w-md md:p-9 md:text-sm
+    lg:w-lg lg:p-10 lg:text" (ngSubmit)="login()">
+    <h1 class="text-xl font-normal text-slate-200 drop-shadow-slate-800 drop-shadow-xl
+    md:text-2xl">Fazer Login</h1>
+    <div class="items-start text-slate-100 flex flex-col w-full md:gap-3">
+        <div class="h-4 sm:text-[13px] text-red-200">
+            <span *ngIf="isControlValid('email')">O campo de email deve ser válido!</span>
         </div>
-    <div class="w-5/6 pb-10 flex justify-center shadow-2xl border-slate-700">
-        <button class="focus-visible:outline-none
-        focus-visible:ring-4 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 focus-visible:scale-105
-        shadow-2xl py-4 text-white from-slate-700 bg-linear-to-r to-slate-600 border text-3xl bg-slate-700 border-slate-400 rounded-lg
-        hover:bg-linear-to-r hover:from-slate-600 hover:to-slate-500 hover:cursor-pointer transition-all duration-300 w-1/3" type="submit">Logar</button>
+        <label for="email">Email:</label>
+        <input type="text" minlength="3"
+            class="font-normal border-b border-slate-500 focus:outline-none mb-8 p-1 pt-2 pl-0 w-full"
+            formControlName="email" name="email" placeholder="Digite seu email" required>
+            <div class="h-4 sm:text-[13px]  text-red-200">
+                <span *ngIf="isControlValid('password')">O campo de senha deve ser preenchido!</span>
+            </div>
+        <label for="password">Senha:</label>
+        <input type="password"
+            class="font-normal border-b border-slate-500 focus: focus:outline-none p-1 pt-2 pl-0 w-full"
+            formControlName="password" name="password" placeholder="Digite sua senha" required>
+        <div class="pt-5 w-full flex flex-row-reverse justify-between">
+            <a class="active:text-slate-300 hover:text-yellow-50" routerLink="/home">Esqueceu sua senha?</a>
+            <a class="active:text-slate-300 hover:text-yellow-50" routerLink="/auth/register">Criar sua conta</a>
+            
+        </div>
+        <div class="text-center justify-end h-5 w-full">
+            <span class=" text-red-200 font-normal text-center w-full" *ngIf="invalidLogin">Login ou senha
+                incorretos!</span>
+        </div>
     </div>
+    <button
+        class="focus-visible:outline-none
+        focus-visible:ring-4 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 focus-visible:scale-105
+        drop-shadow-slate-800 drop-shadow-xl py-2 text-white text-xl from-slate-700 bg-linear-to-r to-slate-600 border bg-slate-700 border-slate-400 rounded-lg
+        hover:bg-linear-to-r hover:from-slate-600 hover:to-slate-500 hover:cursor-pointer transition-all duration-300 w-4/7
+        md:text-2xl "
+        type="submit">Logar</button>
 </form>

@@ -1,20 +1,25 @@
+import { CommonModule } from "@angular/common";
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { HomeHeaderMenuComponent } from "./home-header-menu/home-header-menu.component";
 
 @Component({
   selector: 'app-default-home-layout',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, HomeHeaderMenuComponent, RouterOutlet, CommonModule],
   templateUrl: './default-home-layout.component.html',
 })
-export class DefaultHomeLayoutComponent implements OnInit{
+export class DefaultHomeLayoutComponent implements OnInit {
 
-  constructor(private router : Router){
+  userName: string | null = localStorage.getItem('name');
 
+  constructor(private router: Router) {
+    localStorage.clear();
   }
 
   ngOnInit(): void {
-    if(!!localStorage.getItem('user')){
+
+    if (!!localStorage.getItem('user')) {
 
     }
   }

@@ -1,11 +1,26 @@
-<div class="text-white w-screen h-screen overflow-hidden flex">
-    <div class="justify-center items-center h-full w-full bg-slate-800">
+<div class="p-5 text-xs pb-20 text-slate-300 min-w-2xs overflow-hidden min-h-full flex flex-col-reverse justify-end items-center bg-linear-to-r 
+    from-slate-900 to-slate-800
+    sm:flex-row sm:min-w-full sm:justify-center sm:gap-10 sm:overflow-hidden
+    md:flex-row md:justify-items-center md:gap-25 md:overflow-hidden
+    lg:flex-row lg:justify-items-center lg:gap-50 lg:overflow-hidden 
+    ">
+    <div class="shadow-xl from-slate-700 bg-linear-to-l to-slate-800 shadow-slate-950 bg-transparent rounded-xl
+        ">
         <router-outlet></router-outlet>
     </div>
-    <div style="background-image: url(../../../../assets/imgs/img.png);" class="text-slate-800 text-2xl bg- bg-cover bg-center text-center justify-center flex flex-col gap-y-10 w-full h-full">
-        <h1 class="text-5xl ">Casa Fácil</h1>
+
+    <div class="flex flex-col flex-nowrap text-center gap-3 p-10
+        md:text-lg md:gap-6
+        lg:text-2xl">
+        <h1 class="text-2xl text-slate-200
+        md:text-3xl
+        lg:text-5xl">
+            Projeto</h1>
         <h3>Encontre seu lar.</h3>
         <h3>Divulgue sua propriedade.</h3>
         <h3>Rápido e fácil.</h3>
     </div>
 </div>
+<style>
+
+</style>

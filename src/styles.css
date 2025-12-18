@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "tailwindcss/utilities";
+
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    /* Faz a transição de cor de fundo demorar "para sempre" */
+    transition: background-color 600000s ease-in-out 0s;
+    
+    /* Garante que a cor do texto permaneça a que você definiu (ex: branco) */
+    -webkit-text-fill-color: white !important;
+}

@@ -15,6 +15,11 @@ export interface UserLoginDTO{
     password: string;
 }
 
+export class UserLogin{
+    email: string | null = null;
+    password: string | null = null
+}
+
 export interface UserRegisterDTO{
     name: string;
     email: string;
