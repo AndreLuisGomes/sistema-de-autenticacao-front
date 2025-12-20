@@ -7,10 +7,12 @@ export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () => import('./layouts/default-home-layout/default-home-layout.component').then(c => c.DefaultHomeLayoutComponent),
-        children: [],
-        data:{title: 'Home | Projeto'}
+        data:{title: 'Home | Projeto'},
+        children: [
+        ],
     },
     {
+        // falta implementar //
         path: 'imoveis',
         canActivate: [AuthGuard],
         loadComponent: () => import('./layouts/default-home-layout/default-home-layout.component').then(c => c.DefaultHomeLayoutComponent),

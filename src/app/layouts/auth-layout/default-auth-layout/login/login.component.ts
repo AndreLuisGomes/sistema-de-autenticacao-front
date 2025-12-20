@@ -16,6 +16,8 @@ export class LoginComponent {
 
   invalidLogin: boolean = false;
   loginForm: FormGroup;
+  isLoading: boolean = false;
+  hidePassword = true;
 
   constructor(private userService: UserService, private router: Router, private authService: AuthService = inject(AuthService)) {
     this.loginForm = new FormGroup({
@@ -27,16 +29,18 @@ export class LoginComponent {
   login() {
     this.loginForm.markAllAsTouched()
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value as UserLoginDTO).subscribe({
+      this.isLoading = true;
+      this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe({
         next: (user) => {
-          console.log('Logando usuário: ', user.name, 'e Token: ', user.token),
-            this.authService.login(user.name, user.token);
+          console.log('Logando usuário: ', user.name, 'e Token'),
+          this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value);
           this.router.navigate(['/home']);
-          this.invalidLogin = false;
+          this.invalidLogin = false
         },
         error: (error) => {
           console.error('Erro', error),
             this.invalidLogin = true
+            this.isLoading = false;
         }
       });
     }

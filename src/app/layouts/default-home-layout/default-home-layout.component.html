@@ -1,4 +1,4 @@
-<div class="w-screen justify-between h-screen bg-radial from-slate-800 font-normal to-slate-900" >
+<div class="w-screen justify-between h-screen bg-radial from-slate-800 font-normal to-slate-900">
     <app-home-header-menu></app-home-header-menu>
     <div class="text-slate-500">
         <button class="bg-amber-50"></button>
@@ -6,8 +6,18 @@
     </div>
 
     <div class="text-slate-200 w-full text-center">
-        <h1>Clique <a class="underline hover:cursor-pointer hover:text-amber-200" routerLink="/auth/fazer-login">aqui</a> para fazer login</h1>
-        <h1 *ngIf="!!userName">Bem vindo de volta:</h1><span>{{ userName }}</span>
+        <!-- <h1>Clique <a class="underline hover:cursor-pointer hover:text-amber-200"
+                routerLink="/auth/fazer-login">aqui</a> para fazer login</h1>
+        <h1>Bem vindo de volta:</h1> -->
+        <ng-container class="" *ngIf="authService.authState$ | async as auth; else guest">
+            <p>Bem-vindo, {{ auth.name }}!</p>
+
+            <button class="hover:text-amber-300 text-amber-100 active:text-slate-300" (click)="authService.logout()">Sair</button>
+        </ng-container>
+
+        <ng-template #guest>
+            <button class="hover:text-amber-300 text-amber-100 active:text-slate-300" routerLink="/auth/fazer-login">Entrar</button>
+        </ng-template>
     </div>
     <router-outlet></router-outlet>
 </div>

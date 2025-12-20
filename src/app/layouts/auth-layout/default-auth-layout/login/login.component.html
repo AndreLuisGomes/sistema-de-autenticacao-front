@@ -4,7 +4,7 @@
     lg:w-lg lg:p-10 lg:text" (ngSubmit)="login()">
     <h1 class="text-xl font-normal text-slate-200 drop-shadow-slate-800 drop-shadow-xl
     md:text-2xl">Fazer Login</h1>
-    <div class="items-start text-slate-100 flex flex-col w-full md:gap-3">
+    <div class="items-start relative text-slate-100 flex flex-col w-full md:gap-3">
         <div class="h-4 sm:text-[13px] text-red-200">
             <span *ngIf="isControlValid('email')">O campo de email deve ser válido!</span>
         </div>
@@ -12,28 +12,45 @@
         <input type="text" minlength="3"
             class="font-normal border-b border-slate-500 focus:outline-none mb-8 p-1 pt-2 pl-0 w-full"
             formControlName="email" name="email" placeholder="Digite seu email" required>
-            <div class="h-4 sm:text-[13px]  text-red-200">
-                <span *ngIf="isControlValid('password')">O campo de senha deve ser preenchido!</span>
-            </div>
+        <div class="h-4 sm:text-[13px]  text-red-200">
+            <span *ngIf="isControlValid('password')">O campo de senha deve ser preenchido!</span>
+        </div>
         <label for="password">Senha:</label>
-        <input type="password"
+        <input [type]="hidePassword ? 'password' : 'text'"
             class="font-normal border-b border-slate-500 focus: focus:outline-none p-1 pt-2 pl-0 w-full"
             formControlName="password" name="password" placeholder="Digite sua senha" required>
+        <div class="relative">
+            <button type="button" (click)="hidePassword = !hidePassword"
+                class="absolute right-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+                <svg *ngIf="hidePassword" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+
+                <svg *ngIf="!hidePassword" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                </svg>
+            </button>
+        </div>
         <div class="pt-5 w-full flex flex-row-reverse justify-between">
             <a class="active:text-slate-300 hover:text-yellow-50" routerLink="/home">Esqueceu sua senha?</a>
-            <a class="active:text-slate-300 hover:text-yellow-50" routerLink="/auth/register">Criar sua conta</a>
-            
+            <a class="active:text-slate-300 hover:text-yellow-50" [routerLink]="['/auth', 'criar-conta']">Criar sua
+                conta</a>
+
         </div>
         <div class="text-center justify-end h-5 w-full">
             <span class=" text-red-200 font-normal text-center w-full" *ngIf="invalidLogin">Login ou senha
                 incorretos!</span>
         </div>
     </div>
-    <button
-        class="focus-visible:outline-none
+    <button class="focus-visible:outline-none disabled:opacity-30 disabled:cursor-not-allowed
         focus-visible:ring-4 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 focus-visible:scale-105
         drop-shadow-slate-800 drop-shadow-xl py-2 text-white text-xl from-slate-700 bg-linear-to-r to-slate-600 border bg-slate-700 border-slate-400 rounded-lg
         hover:bg-linear-to-r hover:from-slate-600 hover:to-slate-500 hover:cursor-pointer transition-all duration-300 w-4/7
-        md:text-2xl "
-        type="submit">Logar</button>
+        md:text-2xl" [disabled]="isLoading" type="submit">{{ isLoading ? 'Entrando' : 'Logar' }}</button>
 </form>

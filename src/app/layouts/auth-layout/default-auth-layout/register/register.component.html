@@ -14,6 +14,7 @@
             formControlName="name" name="name" placeholder="Digite seu nome" required>
         <div class="h-4 text-[10px] text-red-200">
             <span *ngIf="isControlValid('email')">O campo de email deve ser válido!</span>
+            <span *ngIf="emailInvalid">Email já está em uso tente outro!</span>
         </div>
         <label for="email">Email:</label>
         <input type="text" minlength="3"
@@ -28,14 +29,14 @@
             formControlName="password" name="password" placeholder="Digite sua senha" required>
         <div class="w-full py-5 flex gap-2">
             <span>Já é logado?</span>
-            <a class="active:text-slate-300 hover:cursor-pointer hover:text-yellow-50" routerLink="/auth/login">Faça Login</a>
+            <a class="active:text-slate-300 hover:cursor-pointer hover:text-yellow-50" routerLink="/auth/fazer-login">Faça Login</a>
         </div>
     </div>
     <button
-        class="focus-visible:outline-none
+        class="focus-visible:outline-none disabled:opacity-30 disabled:cursor-not-allowed
         focus-visible:ring-4 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 focus-visible:scale-105
         drop-shadow-slate-800 drop-shadow-xl py-2 text-white text-xl from-slate-700 bg-linear-to-r to-slate-600 border bg-slate-700 border-slate-400 rounded-lg
         hover:bg-linear-to-r hover:from-slate-600 hover:to-slate-500 hover:cursor-pointer transition-all duration-300 w-4/7
-        md:text-2xl "
-        type="submit">Logar</button>
+        md:text-2xl" [disabled]="isLoading"
+        type="submit">{{ isLoading ? 'Entrando' : 'Criar Conta' }}</button>
 </form>

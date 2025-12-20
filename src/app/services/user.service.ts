@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User, UserLoginDTO, UserRegisterDTO, UserSession } from '../../models/interfaces/user';
 import { Observable } from 'rxjs';
@@ -14,11 +14,18 @@ export class UserService {
 
   }
 
-  login(user: UserLoginDTO) : Observable<UserSession> {
-    return this.client.post<UserSession>(this.apiURL + `/login`, user);
+  getUserByName(name: string): Observable<User[]> {
+    const params = new HttpParams();
+    params.set('name', name);
+    return this.client.get<User[]>(this.apiURL + `/users`, { params: params })
   }
 
-  register(user: UserRegisterDTO): Observable<User> {
-    return this.client.post<User>(this.apiURL + `/register`, user);
+  getUsersByName(name: string): Observable<User[]> {
+    const params = new HttpParams().set('name', name);
+
+    return this.client.get<User[]>(
+      `${this.apiURL}/users`,
+      { params }
+    );
   }
 }

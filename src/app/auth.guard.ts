@@ -13,12 +13,8 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(): boolean | UrlTree {
-    return this.authService.isLoggedIn()
+    return this.authService.getIsLoggedIn()
       ? true
       : this.router.createUrlTree(['/auth/fazer-login'])
   };
 }
-
-// export const authGuard: CanActivateFn = (route, state) => {
-//   return true;
-// };

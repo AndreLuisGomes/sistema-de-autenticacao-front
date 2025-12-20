@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+import { AuthResponse, AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home-header-menu',
@@ -11,28 +12,23 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeHeaderMenuComponent {
 
-  constructor(private authService : AuthService, private router: Router){
+  authState$! : BehaviorSubject<AuthResponse | null>;
 
+  constructor(private authService : AuthService, private router: Router){
+    
   }
 
   isLogged() : boolean{
-    return this.authService.isLoggedIn();
+    return !!this.authService.getIsLoggedIn();
   }
 
-  loggout(){
-    this.authService.logout();
-    this.router.navigate(['/home']);
+  logout(){
+    this.authService.logout()
+    this.router.navigate(['/home'])
   }
 
   login(){
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/auth/fazer-login'])
   }
 
-  seeProfile(){
-
-  }
-
-  selectedButton(name : string){
-
-  }
 }
