@@ -3,6 +3,8 @@
         <button class="h-9/12 px-4 hover:cursor-pointer hover:text-amber-200 rounded-sm">Projeto</button>
     </div>
     <div class="h-full w-fit gap-2 flex flex-row justify-center items-center">
+        <a href=""></a>
+        <a class="h-9/12 px-4 hover:cursor-pointer flex hover:text-amber-200 rounded-sm items-center" routerLink="/home">Home</a>
         <button class="h-9/12 hover:cursor-pointer"><img class="h-full w-full rounded-full" *ngIf="this.authService.isLoggedIn()" src="../../../../assets/imgs/img.png"></button>
         <button class="h-9/12 px-4 hover:cursor-pointer hover:text-amber-200 rounded-sm" *ngIf="this.authService.isLoggedIn()" (click)="logout()">Sair</button>
         <button class="h-9/12 px-4 hover:cursor-pointer hover:text-amber-200 rounded-sm" *ngIf="!this.authService.isLoggedIn()" (click)="login()">Entrar</button>

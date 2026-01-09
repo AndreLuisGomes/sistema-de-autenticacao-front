@@ -13,6 +13,7 @@
         <ng-container *ngIf="this.authService.currentUser()">
             <ng-container *ngIf="this.authService.currentName() != null ">
                 <p>Bem-vindo, {{ this.authService.currentName() }}!</p>
+                <a class="hover:cursor-pointer hover:text-slate-300 text-amber-100" routerLink="/imoveis/cadastrar-imovel">Cadastrar novos imóveis!</a>
             </ng-container>
         </ng-container>
 

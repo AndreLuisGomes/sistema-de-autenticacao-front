@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UserRegisterDTO } from '../../../../../models/interfaces/user';
+import { UserRegisterDTO } from '../../../../../models/auth/user';
 import { AuthService } from '../../../../services/auth.service';
 import { UserService } from '../../../../services/user.service';
 import { CommonUXService } from '../../../../services/common-ux.service';

@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(): boolean | UrlTree {
-    return this.authService.currentUser()
+    return this.authService.currentUser()?.role === 'owner'
       ? true
       : this.router.createUrlTree(['/auth/fazer-login'])
   };

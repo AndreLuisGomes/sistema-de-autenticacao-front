@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../../services/user.service';
-import { User, UserLoginDTO } from '../../../../../models/interfaces/user';
+import { User, UserLoginDTO } from '../../../../../models/auth/user';
 import { AuthService } from '../../../../services/auth.service';
 import { Router, RouterLink } from "@angular/router";
 

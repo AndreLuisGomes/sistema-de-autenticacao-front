@@ -2,6 +2,7 @@
   "name": "projet-login",
   "version": "0.0.0",
   "scripts": {
+    "nx" : "",
     "ng": "ng",
     "start": "rimraf .angular/cache && ng serve",
     "build": "ng build",

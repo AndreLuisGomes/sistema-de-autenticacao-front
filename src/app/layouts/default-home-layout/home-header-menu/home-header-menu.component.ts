@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthResponse, AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
@@ -7,26 +7,26 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-home-header-menu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home-header-menu.component.html',
 })
 export class HomeHeaderMenuComponent {
 
-  constructor(public authService : AuthService, private router: Router){
-    
+  constructor(public authService: AuthService, private router: Router) {
+
   }
 
-  isLogged() : boolean{
+  isLogged(): boolean {
     return !!this.authService.currentUser
   }
 
-  logout(){
+  logout() {
     this.authService.logout()
     this.router.navigate(['/home'])
     window.location.reload();
   }
 
-  login(){
+  login() {
     this.router.navigate(['/auth/fazer-login'])
   }
 

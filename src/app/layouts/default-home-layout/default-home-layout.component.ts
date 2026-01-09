@@ -8,7 +8,7 @@ import { HomeHeaderMenuComponent } from "./home-header-menu/home-header-menu.com
 @Component({
   selector: 'app-default-home-layout',
   standalone: true,
-  imports: [HomeHeaderMenuComponent, RouterOutlet, CommonModule],
+  imports: [HomeHeaderMenuComponent, RouterOutlet, CommonModule, RouterLink],
   templateUrl: './default-home-layout.component.html',
 })
 export class DefaultHomeLayoutComponent {

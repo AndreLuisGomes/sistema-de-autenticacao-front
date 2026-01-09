@@ -1,6 +1,9 @@
-<div class="w-full h-md p-8 text-sm sm:text-xl md:2xl lg:text-2xl font-normal text-slate-100 text-center flex flex-col gap-7" *ngIf="this.commonService.registerOptions()">
-    <button class="hover:text-amber-100 hover:cursor-pointer active:text-slate-300" (click)="owner()">Criar conta para anunciar</button>ou
-    <button class="hover:text-amber-100 hover:cursor-pointer active:text-slate-300" (click)="renter()">Criar conta para alugar</button>
+<div class="w-full h-md p-8 text-sm sm:text-xl md:2xl lg:text-2xl font-normal text-center text-amber-100 flex flex-col gap-7"
+    *ngIf="this.commonService.registerOptions()">
+    <button class="hover:text-amber-100 hover:cursor-pointer active:text-slate-300" (click)="owner()">Criar conta para
+        anunciar</button>ou
+    <button class="hover:text-amber-100 hover:cursor-pointer active:text-slate-300" (click)="renter()">Criar conta para
+        alugar</button>
 </div>
 <form *ngIf="this.commonService.registerCanProceed()" id="loginForm" [formGroup]="registerForm" class="p-7 font-normal text-slate-300 text-xs w-xs rounded-xl justify-center flex flex-col gap-5 items-center
     sm:w-sm sm:gap-5 sm:p-8 
@@ -9,13 +12,13 @@
     <h1 class="text-xl font-normal text-slate-200 drop-shadow-slate-800 drop-shadow-xl
     md:text-2xl">Criar Conta</h1>
     <div class="items-start text-slate-100 flex flex-col w-full md:gap-0 lg:gap-1">
-        <div class="h-4 text-[12px] mb-6 text-red-200 lg:my-0">
+        <div class="h-4 mb-6 text-[12px]  text-red-200">
             <span *ngIf="isControlValid('name')">O campo de nome deve ter ao menos 3 caracteres!</span>
         </div>
         <label class="ml-0.5" for="name">Nome:</label>
-        <input type="text" minlength="3" class="font-normal focus:outline-none pt-2 w-full"
-            formControlName="name" name="name" placeholder="Digite seu nome" required>
-        <div class="h-px mt-0.5 w-full bg-linear-to-r from-slate-600 to-slate-500"></div>
+        <input type="text" minlength="3" class="font-normal focus:outline-none pt-2 w-full" formControlName="name"
+            name="name" placeholder="Digite seu nome" required>
+        <div class="h-px mt-1 w-full bg-linear-to-r from-slate-600 to-slate-500"></div>
 
         <div class="h-4 my-3 text-[12px] text-red-200">
             <span *ngIf="isControlValid('email')">O campo de email deve ser válido!</span>
@@ -31,12 +34,14 @@
         </div>
         <label class="ml-0.5" for="password">Senha:</label>
 
-        <div class="flex w-full">
+        <div class="flex items-center w-full pt-2"> <input
+                [type]="hidePassword ? 'password' : 'text'"
+                class="font-normal focus:outline-none w-full ml-1 bg-transparent" formControlName="password"
+                name="password" placeholder="Digite sua senha" required>
 
-            <input [type]="hidePassword ? 'password' : 'text'" class="font-normal focus:outline-none w-full ml-1"
-                formControlName="password" name="password" placeholder="Digite sua senha" required>
+            <!-- <button type="button" (click)="hidePassword = !hidePassword"
+                class="text-slate-400 hover:text-slate-100 transition-colors focus:outline-none px-2">
 
-            <button type="button" (click)="hidePassword = !hidePassword" class="text-slate-400 hover:text-slate-100 ">
                 <svg *ngIf="hidePassword" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,6 +55,22 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
                 </svg>
+            </button> -->
+
+            <button type="button" (click)="hidePassword = !hidePassword" class="text-slate-400 hover:text-slate-100 ">
+                <svg *ngIf="hidePassword" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+
+                <svg *ngIf="!hidePassword" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                </svg>
             </button>
 
         </div>
@@ -58,13 +79,13 @@
 
         <div class="w-full py-5 flex gap-2">
             <span>Já é logado?</span>
-            <a class="active:text-slate-300 hover:cursor-pointer hover:text-amber-100"
+            <a class="active:text-slate-300 hover:cursor-pointer text-amber-100"
                 routerLink="/auth/fazer-login">Faça Login</a>
         </div>
     </div>
     <button class="focus-visible:outline-none disabled:opacity-30 disabled:cursor-not-allowed
         focus-visible:ring-4 focus-visible:ring-slate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 focus-visible:scale-105
-        drop-shadow-slate-800 drop-shadow-xl py-2 text-white text-xl from-slate-700 bg-linear-to-r to-slate-600 border bg-slate-700 border-slate-400 rounded-lg
+        drop-shadow-slate-800 drop-shadow-xl py-2 text-white text-xl from-slate-700 bg-linear-to-r to-slate-600 border bg-slate-700 border-slate-500 rounded-lg
         hover:bg-linear-to-r hover:from-slate-600 hover:to-slate-500 hover:cursor-pointer transition-all duration-300 w-4/7
         md:text-2xl" [disabled]="isLoading" type="submit">{{ isLoading ? 'Entrando' : 'Criar Conta' }}</button>
 </form>

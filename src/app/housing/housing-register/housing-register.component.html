@@ -1,0 +1,124 @@
+<form
+    class="bg-radial w-xs text-sm items-center justify-center mt-5 p-4 rounded-xl border border-slate-700 mb-9 text-slate-200 text-center flex from-slate-600 to-slate-800"
+    [formGroup]="housingForm">
+
+    <!-- Verificação e página 1 do formulário -->
+
+    <div class="flex flex-col w-full items-center gap-4" *ngIf="step === 0">
+        <div>
+            <span class="text-[17px]">Informações básicas do imóvel:</span>
+        </div>
+
+        <!-- Seção de foto de perfil da propriedade -->
+
+        <div class="flex justify-evenly items-center w-full relative group">
+            <label class="w-2/3">Foto de perfil</label>
+
+            <div
+                class="w-15 h-15 rounded-full border-2 border-dashed border-slate-400 flex items-center justify-center overflow-hidden bg-slate-800">
+                <img *ngIf="imagePreview" [src]="imagePreview" class="w-full h-full object-cover">
+                <svg *ngIf="!imagePreview" class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden" #fileInput>
+
+                <button type="button" (click)="fileInput.click()"
+                    class="absolute ml-53.5 hover:cursor-pointer w-15 h-15 inset-0 flex items-center justify-center focus:opacity-100 bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-full"><span
+                        class="text-white text-xs font-medium">Trocar Foto</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Resto das informações básicas -->
+
+        <label class="w-1/3 m-0 p-0n" for="name">Título</label>
+        <div class="flex justify-between items-center">
+            <input class="w-1/3" class="border mb-2 w-72 border-slate-400 rounded-md p-3" type="text"
+                placeholder="Ex: Casa">
+        </div>
+        <label class="w-1/3" for="desc">Descrição</label>
+        <div class="flex w-full mb-2 justify-between items-center">
+            <textarea rows="3" placeholder="Adicione qualquer coisa relevante"
+                class="border w-full border-slate-400 rounded-md p-3" type="text"></textarea>
+        </div>
+        <label class="w-1/3" for="price">Preço</label>
+        <div class="flex justify-between items-center">
+            <span class="mr-2">R$</span>
+            <input class="border border-slate-400 w-33 rounded-md p-3" placeholder="000.000.000,00" type="number">
+        </div>
+        <button type="button" class="active:text-slate-300 text-amber-100 text-[15px]"
+            (click)="nextStep()">Próximo</button>
+    </div>
+
+    <!-- Seção de preenchimento de endereço da propriedade -->
+
+    <div *ngIf="step === 1" class="space-y-6 animate-in fade-in duration-500">
+        <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+
+            <div class="md:col-span-2 flex flex-col gap-1">
+                <label class="text-slate-400 text-xs uppercase font-bold">CEP</label>
+                <input type="text" formControlName="postalCode" (blur)="onCepBlur()"
+                    class="bg-slate-800 border-b-2 border-slate-700 p-3 focus:border-amber-500 outline-none transition-all">
+            </div>
+
+            <div class="md:col-span-4 flex flex-col gap-1">
+                <label class="text-slate-400 text-xs uppercase font-bold">Logradouro / Rua</label>
+                <input type="text" formControlName="street"
+                    class="bg-slate-800 border-b-2 border-slate-700 p-3 focus:border-amber-500 outline-none transition-all">
+            </div>
+
+            <div class="md:col-span-3 flex flex-col gap-1">
+                <label class="text-slate-400 text-xs uppercase font-bold">Bairro</label>
+                <input type="text" formControlName="neighborhood"
+                    class="bg-slate-800 border-b-2 border-slate-700 p-3 focus:border-amber-500 outline-none transition-all">
+            </div>
+
+            <div class="md:col-span-1 flex flex-col gap-1">
+                <label class="text-slate-400 text-xs uppercase font-bold">Nº</label>
+                <input type="text" formControlName="number"
+                    class="bg-slate-800 border-b-2 border-slate-700 p-3 focus:border-amber-500 outline-none transition-all">
+            </div>
+
+            <div class="md:col-span-2 flex flex-col gap-1">
+                <label class="text-slate-400 text-xs uppercase font-bold">Cidade</label>
+                <input type="text" formControlName="city"
+                    class="bg-slate-800 border-b-2 border-slate-700 p-3 focus:border-amber-500 outline-none transition-all">
+            </div>
+            <div class="flex w-full items-center justify-evenly">
+                <button type="button" class="text-amber-100" (click)="previousStep()">Voltar</button>
+                <button type="button" class="text-amber-100" (click)="nextStep()">Próximo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção para adição de fotos na galeria -->
+
+    <div *ngIf="step === 2" class="space-y-6">
+        <div class="border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-amber-500 transition-colors cursor-pointer"
+            (click)="galleryInput.click()">
+            <input type="file" #galleryInput multiple (change)="onGallerySelected($event)" class="hidden"
+                accept="image/*">
+            <svg class="w-12 h-12 mx-auto text-slate-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="text-slate-300 font-medium">Clique para selecionar as fotos da propriedade</p>
+            <p class="text-slate-500 text-sm">Você pode selecionar várias de uma vez.</p>
+        </div>
+
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4">
+            <div *ngFor="let url of galleryPreviews; let i = index" class="relative aspect-square group">
+                <img [src]="url" class="w-full h-full object-cover rounded-lg border border-slate-700">
+                <button (click)="removePhoto(i)"
+                    class="absolute -top-2 -right-2 bg-red-600 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

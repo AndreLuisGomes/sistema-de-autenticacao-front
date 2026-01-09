@@ -7,7 +7,7 @@ export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () => import('./layouts/default-home-layout/default-home-layout.component').then(c => c.DefaultHomeLayoutComponent),
-        data:{title: 'Home | Projeto'},
+        data: { title: 'Home | Projeto' },
         children: [
         ],
     },
@@ -15,8 +15,14 @@ export const routes: Routes = [
         // falta implementar //
         path: 'imoveis',
         canActivate: [AuthGuard],
-        loadComponent: () => import('./layouts/default-home-layout/default-home-layout.component').then(c => c.DefaultHomeLayoutComponent),
-        data: { title: 'Casa Fácil' }
+        loadComponent: () => import('./layouts/default-housing-layout/default-housing-layout.component').then(c => c.DefaultHousingLayoutComponent),
+        data: { title: 'Casa Fácil' },
+        children: [
+            {
+                path: 'cadastrar-imovel',
+                loadComponent: () => import('../app/housing/housing-register/housing-register.component').then(c => c.HousingRegisterComponent),
+            }
+        ]
     },
     {
         path: 'auth',
