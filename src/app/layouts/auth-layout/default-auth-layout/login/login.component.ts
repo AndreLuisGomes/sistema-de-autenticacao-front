@@ -5,6 +5,7 @@ import { UserService } from '../../../../services/user.service';
 import { User, UserLoginDTO } from '../../../../../models/auth/user';
 import { AuthService } from '../../../../services/auth.service';
 import { Router, RouterLink } from "@angular/router";
+import { ApiError } from '../../../../../models/error/error';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { Router, RouterLink } from "@angular/router";
 })
 export class LoginComponent {
 
+  otherError = signal<boolean>(false);
   invalidLogin = signal<boolean>(false);
   isLoading = signal<boolean>(false);
   loginForm: FormGroup;
@@ -27,18 +29,23 @@ export class LoginComponent {
   }
 
   login() {
-    this.loginForm.markAllAsTouched()
+    this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.invalidLogin.set(false);
       this.isLoading.set(true);
-      this.authService.login(this.loginForm.value as UserLoginDTO).subscribe({
+      this.authService.login(this.loginForm.value as UserLoginDTO).pipe().subscribe({
         next: () => {
           this.router.navigate(['/home']);
         },
-        error: (err) => {
-          this.invalidLogin.set(true);
-          this.isLoading.set(false);
-          console.error(err);
+        error: (error : ApiError) => {
+          if(error.status === 404){
+            console.error(error);
+            this.isLoading.set(false);
+          }else{
+            this.otherError.set(true);
+            console.error(error);
+            this.isLoading.set(false);
+          }
         }
       })
     }
@@ -47,5 +54,10 @@ export class LoginComponent {
   isControlValid(controlName: string): boolean {
     const control = this.loginForm.get(controlName);
     return !!control && control?.invalid && (control.dirty || control?.touched);
+  }
+
+  isControlBlank(controlName: string) : boolean{
+    const control = this.loginForm.get(controlName);
+    return !!control && control?.invalid && control.touched;
   }
 }

@@ -55,9 +55,13 @@
             <a class="active:text-slate-300 text-amber-100" [routerLink]="['/auth', 'criar-conta']">Criar
                 conta</a>
         </div>
-        <div class="text-center mt-3 justify-end h-5 w-full">
-            <span class="text-red-200 font-normal text-center w-full" *ngIf="!!invalidLogin()">Email ou senha
+        <div class="text-center justify-end h-5 w-full">
+            <span class="text-red-200 font-normal text-center w-full" *ngIf="invalidLogin()">Email ou senha
                 incorretos!</span>
+        </div>
+        <div class="text-center justify-end h-5 w-full">
+            <span class="text-red-200 font-normal text-center w-full" *ngIf="otherError()">Aconteceu um erro inesperado!
+                Aguarde uns instantes!</span>
         </div>
     </div>
 

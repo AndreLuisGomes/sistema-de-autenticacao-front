@@ -7,6 +7,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { UserService } from '../../../../services/user.service';
 import { CommonUXService } from '../../../../services/common-ux.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiError } from '../../../../../models/error/error';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class RegisterComponent {
 
   isLoading: boolean = false;
+  otherError: boolean = false;
   emailInvalid: boolean = false;
   registerForm: FormGroup;
   hidePassword = true;
@@ -36,15 +38,20 @@ export class RegisterComponent {
     this.registerForm.markAllAsTouched()
     if (this.registerForm.valid) {
       this.isLoading = true;
-      this.authService.register(this.registerForm.value as UserRegisterDTO).subscribe({
+      this.authService.register(this.registerForm.value as UserRegisterDTO).pipe().subscribe({
         next: session => {
           this.authService.currentUser.set(session);
           this.router.navigate(['/home']);
         },
-        error: error => {
-          console.error('Erro', error),
+        error: (error: ApiError) => {
+          if (error.status === 409) {
             this.emailInvalid = true;
-          this.isLoading = false
+            console.error(error);
+          }else {
+            console.error(error);
+            this.otherError = true;
+            this.isLoading = false;
+          }
         }
       });
     }
